@@ -1,0 +1,7 @@
+:80 {
+    root * /var/www/html/public
+
+    php_fastcgi laravel-php:9000
+
+    file_server
+}

@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  laravel-php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel-php
+    volumes:
+      - ./:/var/www/html
+
+  laravel-caddy:
+    image: caddy:2
+    container_name: laravel-caddy
+    depends_on:
+      - laravel-php
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./:/var/www/html
+    ports:
+      - "8081:80"
+    restart: unless-stopped
